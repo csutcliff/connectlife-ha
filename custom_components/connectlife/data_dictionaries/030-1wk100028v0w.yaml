@@ -1,1 +1,184 @@
-# Uses default mappings
+# Tumble dryer DHSE10
+# Feature-specific overrides for 1wk100028v0w
+# Overrides default 030.yaml with clean names and adds unmapped properties
+properties:
+  # Override default mappings with clean display names
+  - property: Selected_program_ID
+    icon: mdi:selection-ellipse-arrow-inside
+    select:
+      options:
+        1: Auto
+        2: Anti-Allergy
+        3: Refresh
+        4: Sports
+        5: Towels
+        6: Duvet
+        7: Time
+        8: Cotton
+        9: Baby
+        10: Synthetics
+        11: Wool
+        12: Delicates
+        13: "Fast 30'"
+        14: Rack Dry
+        17: Shirts
+        18: Bedding
+        20: Denim
+  - property: machine_status
+    icon: mdi:tumble-dryer
+    sensor:
+      device_class: enum
+      options:
+        0: "Off"
+        1: Standby
+        2: Running
+      read_only: true
+  - property: Current_program_phase
+    icon: mdi:tumble-dryer
+    sensor:
+      device_class: enum
+      options:
+        0: Idle
+        1: Delay Start Waiting
+        2: Running
+        3: Running
+        4: Anti-Crease
+        5: Program Finished
+      read_only: true
+  - property: Dry_Level
+    icon: mdi:weather-sunny
+    select:
+      options:
+        1: Low
+        2: Medium
+        3: High
+  # Additional properties not in default 030.yaml
+  - property: APPControl_flag
+    hide: true
+  - property: AntiCrease_NotDelayEnd_flag
+    hide: true
+  - property: CancelDelayEndFlag
+    binary_sensor:
+    icon: mdi:timer-off
+    hide: true
+  - property: ChildLockFlag
+    binary_sensor:
+      device_class: lock
+      options:
+        0: off
+        1: on
+    icon: mdi:lock
+    entity_category: diagnostic
+  - property: Childlock_newfuntion
+    hide: true
+  - property: CloudProgramFlag
+    hide: true
+  - property: Damp_Alert
+    binary_sensor:
+      device_class: moisture
+    icon: mdi:water-alert
+  - property: DryEndReminder
+    switch:
+    icon: mdi:bell-ring
+  - property: FilterCleanRemindFlag
+    binary_sensor:
+      device_class: problem
+    icon: mdi:air-filter
+  - property: "FilterCleanRunCycle "
+    hide: true
+  - property: FilterCleanSetCycle
+    sensor:
+      read_only: true
+    icon: mdi:counter
+    entity_category: diagnostic
+    hide: true
+  - property: FilterCleanSwitch
+    switch:
+    icon: mdi:air-filter
+  - property: FunctionValueID
+    hide: true
+  - property: PreheatEndReminder
+    switch:
+    icon: mdi:bell-ring
+  - property: TemperatureHideFlag
+    hide: true
+  - property: Zibian_program_ID
+    hide: true
+  - property: dry_level_new
+    hide: true
+  - property: time_autoflag
+    hide: true
+  - property: washing_program_kg
+    hide: true
+  # Energy tracking - int is whole kWh, decimal is fractional (e.g. int=1, decimal=24 → 1.24 kWh)
+  - property: Electricit_consumption_int
+    sensor:
+      read_only: true
+      device_class: energy
+      state_class: total
+      unit: kWh
+    icon: mdi:flash
+  - property: Electricit_consumption_decimal
+    sensor:
+      read_only: true
+      device_class: energy
+      state_class: total
+      unit: kWh
+      multiplier: 0.01
+    icon: mdi:flash
+    entity_category: diagnostic
+  - property: daily_energy_kwh
+    sensor:
+      read_only: true
+      state_class: total_increasing
+      device_class: energy
+      unit: kWh
+    icon: mdi:lightning-bolt
+  - property: energy
+    sensor:
+      read_only: true
+      device_class: energy
+      unit: kWh
+    icon: mdi:chart-line
+    entity_category: diagnostic
+  # Drying time sensors
+  - property: dry_time
+    sensor:
+      read_only: true
+      device_class: duration
+      unit: min
+    icon: mdi:timer
+  - property: Wear_Dry_Time
+    sensor:
+      read_only: true
+      device_class: duration
+      unit: min
+    icon: mdi:tshirt-crew
+    entity_category: diagnostic
+  - property: Iron_Dry_Time
+    sensor:
+      read_only: true
+      device_class: duration
+      unit: min
+    icon: mdi:iron
+    entity_category: diagnostic
+  - property: Store_Dry_Time
+    sensor:
+      read_only: true
+      device_class: duration
+      unit: min
+    icon: mdi:archive
+    entity_category: diagnostic
+  # Delay end time
+  - property: DelayEndTime_Hour
+    sensor:
+      read_only: true
+      device_class: duration
+      unit: h
+    icon: mdi:clock-outline
+  - property: DelayEndTime_Minute
+    sensor:
+      read_only: true
+      device_class: duration
+      unit: min
+    icon: mdi:clock-outline
